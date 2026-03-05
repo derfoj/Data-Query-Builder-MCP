@@ -11,11 +11,12 @@ import json
 import sqlite3
 import os
 import sys
-from mcp.server.fastmcp import FastMCP
-from .sqlite_helper import create_db, load_csv_to_table
 
-# Import tools package
-from .tools import ToolManager
+# Utiliser des imports absolus car le script est lancé depuis src/
+from sqlite_helper import create_db, load_csv_to_table
+from tools import ToolManager
+
+from mcp.server.fastmcp import FastMCP
 
 mcp = FastMCP("data-query-builder")
 
@@ -30,9 +31,13 @@ def get_db() -> sqlite3.Connection:
     if db is None:
         db = create_db()
         # Auto-load sample data if available
-        if os.path.exists("data/sample_employees(in).csv"):
+        # Resolve path relative to the project root
+        project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        sample_csv = os.path.join(project_root, "data", "sample_employees(in).csv")
+        
+        if os.path.exists(sample_csv):
             try:
-                load_csv_to_table(db, "data/sample_employees(in).csv", "employees")
+                load_csv_to_table(db, sample_csv, "employees")
             except Exception as e:
                 print(f"Warning: Failed to auto-load sample data: {e}")
     return db
