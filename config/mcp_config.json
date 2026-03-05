@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "data-query-builder": {
+      "command": "python",
+      "args": [
+        "run_server.py"
+      ],
+      "cwd": "C:\\Users\\andyl\\OneDrive\\Desktop\\MCP_Server\\data-query-builder",
+      "env": {
+        "PYTHONPATH": "C:\\Users\\andyl\\OneDrive\\Desktop\\MCP_Server\\data-query-builder"
+      }
+    }
+  }
+}
